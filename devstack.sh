@@ -44,3 +44,5 @@ FIXED_RANGE="10.0.0.0/24"
 PUBLIC_NETWORK_GATEWAY="$GATEWAY"
 EOF
 
+cd devstack
+./stack.sh
