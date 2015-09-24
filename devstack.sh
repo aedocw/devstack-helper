@@ -6,11 +6,6 @@ export NET=$(echo $MY_IP | awk -F. '{print $1"."$2"."$3}')
 
 git clone https://git.openstack.org/openstack-dev/devstack
 
-git clone https://git.openstack.org/openstack/murano
-cp murano/contrib/devstack/lib/murano devstack/lib/.
-cp murano/contrib/devstack/lib/murano-dashboard devstack/lib/.
-cp murano/contrib/devstack/extras.d/70-murano.sh devstack/extras.d/.
-
 cat <<EOF > devstack/local.conf
 [[local|localrc]]
 SERVICE_TOKEN=azertytoken
@@ -25,9 +20,10 @@ SWIFT_REPLICAS=1
 SWIFT_DATA_DIR=\$DEST/data
 LIBVIRT_TYPE=kvm
 enable_plugin app-catalog-ui https://git.openstack.org/openstack/app-catalog-ui
+enable_plugin murano https://github.com/openstack/murano
+enable_service murano murano-api murano-engine
 disable_service tempest
 enable_service heat h-api h-api-cfn h-api-cw h-eng
-enable_service murano murano-api murano-engine
 disable_service n-net
 enable_service q-svc
 enable_service q-agt
