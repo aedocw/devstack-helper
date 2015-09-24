@@ -11,8 +11,6 @@ cp murano/contrib/devstack/lib/murano devstack/lib/.
 cp murano/contrib/devstack/lib/murano-dashboard devstack/lib/.
 cp murano/contrib/devstack/extras.d/70-murano.sh devstack/extras.d/.
 
-sed -i "/SESSION_ENGINE = 'django.contrib.sessions.backends.db'/a MURANO_REPO_URL = 'http://storage.apps.openstack.org/'" devstack/lib/murano-dashboard
-
 cat <<EOF > devstack/local.conf
 [[local|localrc]]
 SERVICE_TOKEN=azertytoken
