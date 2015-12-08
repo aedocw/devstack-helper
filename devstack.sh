@@ -20,8 +20,9 @@ SWIFT_REPLICAS=1
 SWIFT_DATA_DIR=\$DEST/data
 LIBVIRT_TYPE=kvm
 enable_plugin app-catalog-ui https://git.openstack.org/openstack/app-catalog-ui
-enable_plugin murano https://github.com/openstack/murano
-enable_service murano murano-api murano-engine
+#If you want Murano, uncomment the next two lines before running stack.sh
+#enable_plugin murano https://github.com/openstack/murano
+#enable_service murano murano-api murano-engine
 disable_service tempest
 enable_service heat h-api h-api-cfn h-api-cw h-eng
 disable_service n-net
@@ -44,5 +45,8 @@ FIXED_RANGE="10.0.0.0/24"
 PUBLIC_NETWORK_GATEWAY="$GATEWAY"
 EOF
 
-cd devstack
-./stack.sh
+echo Now your devstack/local.conf file should be ready to go!
+echo Double-check it just to make sure the network guesses
+echo looked sane, then your next steps should be:
+echo '# cd devstack'
+echo '# ./stack.sh'
