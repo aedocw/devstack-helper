@@ -4,7 +4,7 @@ export MY_IP=$(ip route | awk '/src/ { print $9 }')
 export GATEWAY=$(/sbin/ip route | awk '/default/ { print $3 }')
 export NET=$(echo $MY_IP | awk -F. '{print $1"."$2"."$3}')
 
-#git clone https://git.openstack.org/openstack-dev/devstack
+git clone https://git.openstack.org/openstack-dev/devstack
 
 cat <<EOF > devstack/local.conf
 [[local|localrc]]
