@@ -4,7 +4,7 @@ export MY_IP=$(ip route | awk '/src/ { print $9 }')
 export GATEWAY=$(/sbin/ip route | awk '/default/ { print $3 }')
 export NET=$(echo $MY_IP | awk -F. '{print $1"."$2"."$3}')
 
-git clone https://git.openstack.org/openstack-dev/devstack
+#git clone https://git.openstack.org/openstack-dev/devstack
 
 cat <<EOF > devstack/local.conf
 [[local|localrc]]
@@ -35,18 +35,33 @@ PUBLIC_INTERFACE=eth0
 Q_USE_PROVIDERNET_FOR_PUBLIC=True
 Q_L3_ENABLED=True
 Q_USE_SECGROUP=True
-OVS_PHYSICAL_BRIDGE=br-ex
-PUBLIC_BRIDGE=br-ex
-OVS_BRIDGE_MAPPINGS=public:br-ex
 HOST_IP=$MY_IP
+SERVICE_HOST=$MY_IP
+MYSQL_HOST=$MY_IP
+RABBIT_HOST=$MY_IP
+GLANCE_HOSTPORT=$MY_IP:9292
 FLOATING_RANGE="$NET.0/24"
 Q_FLOATING_ALLOCATION_POOL=start=$NET.230,end=$NET.254
 FIXED_RANGE="10.0.0.0/24"
 PUBLIC_NETWORK_GATEWAY="$GATEWAY"
+
+# Use Linuxbridge
+Q_AGENT=linuxbridge
+LB_PHYSICAL_INTERFACE=eth0
+PUBLIC_PHYSICAL_NETWORK=default
+LB_INTERFACE_MAPPINGS=default:eth0
+
+# OR use OVS
+#OVS_PHYSICAL_BRIDGE=br-ex
+#PUBLIC_BRIDGE=br-ex
+#OVS_BRIDGE_MAPPINGS=public:br-ex
+
 EOF
 
 echo Now your devstack/local.conf file should be ready to go!
-echo Double-check it just to make sure the network guesses
-echo looked sane, then your next steps should be:
+echo To use OVS instead of Linuxbrige, swap the commented-out section
+echo in local.conf.
+echo Now double-check local.conf just to make sure the network guesses
+echo look sane, then your next steps should be:
 echo '# cd devstack'
 echo '# ./stack.sh'
