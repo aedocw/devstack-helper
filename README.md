@@ -18,3 +18,7 @@ script will set up the Devstack instance with the provider
 network, under a single NIC. This one also configures
 the [App Catalog](http://apps.openstack.org) UI (a Horizon
 panel).  Have fun with it!
+
+BTW most of the information I needed came from
+http://docs.openstack.org/developer/devstack/guides/neutron.html
+so be sure to reference that if you get stuck.
