@@ -10,7 +10,7 @@ cat <<EOF > devstack/local.conf
 [[local|localrc]]
 SERVICE_TOKEN=azertytoken
 ADMIN_PASSWORD=admin
-MYSQL_PASSWORD=stackdb
+DATABASE_PASSWORD=stackdb
 RABBIT_PASSWORD=stackqueue
 SERVICE_PASSWORD=\$ADMIN_PASSWORD
 LOGFILE=\$DEST/logs/stack.sh.log
